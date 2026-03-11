@@ -1,14 +1,3 @@
-
-generator client {
-  provider = "prisma-client"
-  output   = "../../generated/prisma"
-}
-
-datasource db {
-  provider = "postgresql"
-}
-
-
 model User {
   id            String    @id
   name          String
@@ -17,6 +6,8 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  role          String?   @default("USER")
+  status        String?   @default("ACTICE")
   sessions      Session[]
   accounts      Account[]
 
