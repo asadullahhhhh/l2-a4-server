@@ -1,0 +1,17 @@
+model Meals {
+    id           String   @id @default(uuid())
+    provider_id  String
+    category_id  String
+    name         String
+    description  String
+    price        Float
+    image_url    String
+    is_available Boolean  @default(true)
+    isFeature    Boolean  @default(false)
+    created_at   DateTime @default(now())
+    updated_at   DateTime @updatedAt
+
+    @@index([provider_id])
+    @@index([category_id])
+    @@map("meals")
+}

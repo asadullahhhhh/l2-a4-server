@@ -1,0 +1,13 @@
+model ProviderProfile {
+    id             String   @id @default(uuid())
+    user_id        String
+    resturent_name String
+    description    String
+    address        String
+    phone          String
+    logo_url       String
+    created_at     DateTime @default(now())
+
+    @@index([user_id])
+    @@map("provider_profile")
+}

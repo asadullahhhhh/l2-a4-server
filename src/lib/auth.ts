@@ -5,22 +5,35 @@ import { UserRole, UserStatus } from "../types/type";
 // If your Prisma file is located elsewhere, you can change the path
 
 export const auth = betterAuth({
-    database: prismaAdapter(prisma, {
-        provider: "postgresql", 
-    }),
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
 
-    user: {
-        additionalFields: {
-            role: {
-                type: "string",
-                defaultValue: "USER",
-                required: false
-            },
-            status: {
-                type: "string",
-                defaultValue: "ACTICE",
-                required: false
-            }
-        }
-    }
+  baseURL: process.env.BETTER_AUTH_URL,
+
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: "USER",
+        required: false,
+      },
+      status: {
+        type: "string",
+        defaultValue: "ACTICE",
+        required: false,
+      },
+    },
+  },
+
+  emailAndPassword: {
+    enabled: true,
+  },
+
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
+  },
 });
