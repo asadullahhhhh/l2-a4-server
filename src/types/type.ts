@@ -1,10 +1,18 @@
-export const enum UserRole {
+export enum UserRole {
   USER,
   PROVIDER,
   ADMIN,
 }
 
-export const enum UserStatus {
+export enum UserStatus {
     ACTICE,
     SUSPENDED
+}
+
+export enum OrderStatus {
+    PLACED,
+    PREPARING,
+    READY,
+    DELIVERED,
+    CANCELLED
 }

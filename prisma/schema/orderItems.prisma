@@ -1,0 +1,12 @@
+model OrderItems {
+    id String @id @default(uuid())
+    order_id String
+    meal_id String
+    quantity Int
+    price Decimal @db.Decimal(10, 2)
+    created_at DateTime @default(now())
+
+    @@index([order_id])
+    @@index([meal_id])
+    @@map("order_items")
+}
