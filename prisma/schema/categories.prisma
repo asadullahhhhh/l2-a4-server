@@ -1,8 +1,9 @@
 model Categories {
-    id String @id @default(uuid())
-    name String
+    id          String   @id @default(uuid())
+    name        String
     description String
-    created_at DateTime @default(now())
+    created_at  DateTime @default(now())
+    meals       Meals[]
 
     @@map("categories")
 }

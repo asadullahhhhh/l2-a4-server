@@ -1,12 +1,14 @@
 model Orders {
-    id               String      @id @default(uuid())
+    id               String          @id @default(uuid())
     user_id          String
     provider_id      String
-    status           OrderStatus @default(PREPARING)
-    total_price      Decimal     @db.Decimal(10, 2)
+    status           OrderStatus     @default(PREPARING)
+    total_price      Decimal         @db.Decimal(10, 2)
     delivery_address String
-    created_at       DateTime    @default(now())
-    updated_at       DateTime    @updatedAt
+    created_at       DateTime        @default(now())
+    updated_at       DateTime        @updatedAt
+    provider         ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+    orderItems       OrderItems[]
 
     @@index([user_id])
     @@index([provider_id])

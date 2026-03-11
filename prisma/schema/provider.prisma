@@ -7,6 +7,8 @@ model ProviderProfile {
     phone          String
     logo_url       String
     created_at     DateTime @default(now())
+    meals          Meals[]
+    orders         Orders[]
 
     @@index([user_id])
     @@map("provider_profile")

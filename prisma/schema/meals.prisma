@@ -1,15 +1,23 @@
 model Meals {
-    id           String   @id @default(uuid())
-    provider_id  String
-    category_id  String
-    name         String
-    description  String
-    price        Float
-    image_url    String
-    is_available Boolean  @default(true)
-    isFeature    Boolean  @default(false)
-    created_at   DateTime @default(now())
-    updated_at   DateTime @updatedAt
+    id             String          @id @default(uuid())
+    provider_id    String
+    category_id    String
+    name           String
+    description    String
+    price          Float
+    image_url      String
+    is_available   Boolean         @default(true)
+    is_vegetarian  Boolean
+    is_vegan       Boolean
+    is_halal       Boolean
+    is_gluten_free Boolean
+    isFeature      Boolean         @default(false)
+    created_at     DateTime        @default(now())
+    updated_at     DateTime        @updatedAt
+    provider       ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+    category       Categories      @relation(fields: [category_id], references: [id])
+    reviews        Reviews[]
+    orderItems     OrderItems[]
 
     @@index([provider_id])
     @@index([category_id])
