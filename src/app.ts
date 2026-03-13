@@ -5,6 +5,7 @@ import cors from 'cors';
 import { categorieRouter } from './modules/categories/categorie.route';
 import errorHandler from './middleware/globalErrorHandler';
 import notFound from './middleware/notFound';
+import { providerRouter } from './modules/provider/provider.route';
 
 const app = express()
 
@@ -25,8 +26,11 @@ app.get("/", (req, res) => {
     res.send("Application is running.....")
 })
 
-// categories route
+// ===> categories route
 app.use("/api/v1/category", categorieRouter)
+
+// ===> provider route
+app.use("/api/v1/provider", providerRouter)
 
 
 // Wrong route handler
