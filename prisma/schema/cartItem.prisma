@@ -1,0 +1,15 @@
+model CartItem {
+    id         String   @id @default(uuid())
+    cart_id    String
+    meal_id    String
+    quantity   Int      @db.SmallInt
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    cart  Cart  @relation(fields: [cart_id], references: [id])
+    meals Meals @relation(fields: [meal_id], references: [id])
+
+    @@index([cart_id])
+    @@index([meal_id])
+    @@map("cart_items")
+}

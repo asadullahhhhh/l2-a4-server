@@ -18,6 +18,7 @@ model Meals {
     category       Categories      @relation(fields: [category_id], references: [id])
     reviews        Reviews[]
     orderItems     OrderItems[]
+    cart_item      CartItem[]
 
     @@index([provider_id])
     @@index([category_id])

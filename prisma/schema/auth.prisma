@@ -13,6 +13,7 @@ model User {
   provider_profile ProviderProfile[]
   orders           Orders[]
   reviews          Reviews[]
+  carts            Cart?
 
   @@unique([email])
   @@map("user")

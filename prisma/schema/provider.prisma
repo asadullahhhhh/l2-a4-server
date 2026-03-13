@@ -7,9 +7,10 @@ model ProviderProfile {
     phone          String
     logo_url       String
     created_at     DateTime @default(now())
+    updated_at     DateTime @updatedAt
     meals          Meals[]
     orders         Orders[]
-    user User @relation(fields: [user_id], references: [id])
+    user           User     @relation(fields: [user_id], references: [id])
 
     @@index([user_id])
     @@map("provider_profile")
