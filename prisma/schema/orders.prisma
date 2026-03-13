@@ -8,6 +8,7 @@ model Orders {
     created_at       DateTime        @default(now())
     updated_at       DateTime        @updatedAt
     provider         ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+    user             User            @relation(fields: [user_id], references: [id])
     orderItems       OrderItems[]
 
     @@index([user_id])

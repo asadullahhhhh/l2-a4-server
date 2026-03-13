@@ -9,6 +9,7 @@ model ProviderProfile {
     created_at     DateTime @default(now())
     meals          Meals[]
     orders         Orders[]
+    user User @relation(fields: [user_id], references: [id])
 
     @@index([user_id])
     @@map("provider_profile")
