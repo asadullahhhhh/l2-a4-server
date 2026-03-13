@@ -10,7 +10,7 @@ model User {
   status           String?           @default("ACTICE")
   sessions         Session[]
   accounts         Account[]
-  provider_profile ProviderProfile[]
+  provider_profile ProviderProfile?
   orders           Orders[]
   reviews          Reviews[]
   carts            Cart?
