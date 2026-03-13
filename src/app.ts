@@ -4,6 +4,7 @@ import { auth } from './lib/auth';
 import cors from 'cors';
 import { categorieRouter } from './modules/categories/categorie.route';
 import errorHandler from './middleware/globalErrorHandler';
+import notFound from './middleware/notFound';
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(cors({
     credentials: true
 }))
 
+// better auth authentication
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
 // base route
@@ -24,11 +26,14 @@ app.get("/", (req, res) => {
 })
 
 // categories route
-app.use("/api/v1/categori", categorieRouter)
+app.use("/api/v1/category", categorieRouter)
 
 
+// Wrong route handler
+app.use(notFound)
 
 // error handler
 app.use(errorHandler)
+
 
 export default app

@@ -1,6 +1,19 @@
+import { prisma } from "../../lib/prisma"
 
-const createCategoryPost = async () => {
-    console.log("This is category service...");
+// types
+interface Category {
+    name: string,
+    description: string
+}
+
+const createCategoryPost = async (payload: Category) => {
+    const result = await prisma.categories.create({
+        data: {
+            ...payload
+        }
+    })
+
+    return result
 }
 
 export const categoriService = {

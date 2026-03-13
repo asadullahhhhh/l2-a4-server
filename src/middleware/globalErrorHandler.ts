@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express"
+import { Prisma } from "../../generated/prisma/client"
 
 
 const errorHandler = (
@@ -7,13 +8,20 @@ const errorHandler = (
     res: Response,
     next: NextFunction
 ) => {
-    const errorCode = 500
-    const errorMessage = "Internal server error!!!"
-    const errorDetails = err
+    let errorCode = 500
+    let errorMessage = "Internal server error!!!"
+    let errorDetails = err
+
+    // ---> Prisma Client Validation Error
+    if(err instanceof Prisma.PrismaClientValidationError) {
+        errorCode = 400
+        errorMessage = `Missing field or Incorrect field type`
+    }
 
     res.status(errorCode).json({
+        success: false,
         message: errorMessage,
-        details: errorDetails
+        details: "Invalid input data!!"
     })
 }
 

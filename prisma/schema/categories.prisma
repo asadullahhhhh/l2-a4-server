@@ -3,6 +3,7 @@ model Categories {
     name        String
     description String
     created_at  DateTime @default(now())
+    updated_at  DateTime @updatedAt @default(now())
     meals       Meals[]
 
     @@map("categories")
