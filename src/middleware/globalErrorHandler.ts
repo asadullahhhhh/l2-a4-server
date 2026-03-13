@@ -12,6 +12,8 @@ const errorHandler = (
     let errorMessage = "Internal server error!!!"
     let errorDetails = err
 
+    console.log(err);
+
     // ---> Prisma Client Validation Error
     if(err instanceof Prisma.PrismaClientValidationError) {
         errorCode = 400
