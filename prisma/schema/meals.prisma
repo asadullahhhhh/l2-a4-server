@@ -4,14 +4,14 @@ model Meals {
     category_id    String
     name           String
     description    String
-    price          Float
-    image_url      String
+    price          Decimal         @db.Decimal(10, 2)
+    image_url      String?
     is_available   Boolean         @default(true)
-    is_vegetarian  Boolean
-    is_vegan       Boolean
-    is_halal       Boolean
-    is_gluten_free Boolean
-    isFeature      Boolean         @default(false)
+    is_vegetarian  Boolean         @default(false)
+    is_vegan       Boolean         @default(false)
+    is_halal       Boolean         @default(false)
+    is_gluten_free Boolean         @default(false)
+    is_feature     Boolean         @default(false)
     created_at     DateTime        @default(now())
     updated_at     DateTime        @updatedAt
     provider       ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)

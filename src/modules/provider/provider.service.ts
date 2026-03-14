@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { Provider } from "../../types/provider";
+import { Provider } from "../../types/provider.type.";
 
 const getProverderById = async (id: string) => {
     console.log(id);

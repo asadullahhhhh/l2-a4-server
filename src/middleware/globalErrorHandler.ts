@@ -1,30 +1,47 @@
-import { NextFunction, Request, Response } from "express"
-import { Prisma } from "../../generated/prisma/client"
-
+import { NextFunction, Request, Response } from "express";
+import { Prisma } from "../../generated/prisma/client";
 
 const errorHandler = (
-    err: any,
-    req: Request,
-    res: Response,
-    next: NextFunction
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) => {
-    let errorCode = 500
-    let errorMessage = "Internal server error!!!"
-    let errorDetails = err
+  let statusCode = 500;
+  let message = "Internal Server Error";
 
-    console.log(err);
+  if(err instanceof Error) {
+    message = err.message
+  }
 
-    // ---> Prisma Client Validation Error
-    if(err instanceof Prisma.PrismaClientValidationError) {
-        errorCode = 400
-        errorMessage = `Missing field or Incorrect field type`
+  // Prisma Validation Error
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    statusCode = 400;
+    message = "Invalid input data";
+  }
+
+  // Prisma Known Errors
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err.code === "P2002") {
+      statusCode = 400;
+      message = "Unique constraint failed";
     }
 
-    res.status(errorCode).json({
-        success: false,
-        message: errorMessage,
-        details: "Invalid input data!!"
-    })
-}
+    if (err.code === "P2003") {
+      statusCode = 400;
+      message = "Foreign key constraint failed";
+    }
 
-export default errorHandler
+    if (err.code === "P2025") {
+      statusCode = 404;
+      message = "Record not found";
+    }
+  }
+
+  res.status(statusCode).json({
+    success: false,
+    message,
+  });
+};
+
+export default errorHandler;

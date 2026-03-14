@@ -6,6 +6,7 @@ import { categorieRouter } from './modules/categories/categorie.route';
 import errorHandler from './middleware/globalErrorHandler';
 import notFound from './middleware/notFound';
 import { providerRouter } from './modules/provider/provider.route';
+import { mealRouter } from './modules/meals/meal.route';
 
 const app = express()
 
@@ -31,6 +32,9 @@ app.use("/api/v1/category", categorieRouter)
 
 // ===> provider route
 app.use("/api/v1/provider", providerRouter)
+
+// ===> meal route
+app.use("/api/v1/meals", mealRouter)
 
 
 // Wrong route handler
