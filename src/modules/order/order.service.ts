@@ -1,6 +1,17 @@
 import { prisma } from "../../lib/prisma";
 import { OrderPayload, MealItem } from "../../types/order.type";
 
+// orders type
+enum OrderStatus {
+    PLACED,
+    PREPARING,
+    READY,
+    DELIVERED,
+    CANCELLED,
+    PROCESSING
+}
+
+
 const getOrders = async (id: string) => {
   const result = await prisma.orders.findMany({
     where: {
@@ -61,6 +72,22 @@ const createOrder = async (payload: OrderPayload, id: string) => {
   return result;
 };
 
+const updateOrder = async (id: string, status: string) => {
+
+    const updateStatus = status.toUpperCase() as keyof typeof OrderStatus
+
+    const order = await prisma.orders.update({
+        where: {
+            id
+        },
+        data: {
+            status : updateStatus
+        }
+    })
+
+    return order
+}
+
 const deleteOrder = async (id: string) => {
   const order = await prisma.orders.findUnique({
     where: {
@@ -85,4 +112,5 @@ export const orderService = {
   createOrder,
   getOrders,
   deleteOrder,
+  updateOrder
 };

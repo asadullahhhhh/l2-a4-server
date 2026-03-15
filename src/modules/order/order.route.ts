@@ -9,6 +9,8 @@ router.get("/", authMiddleware(UserRole.USER, UserRole.ADMIN), orderController.g
 
 router.post("/", authMiddleware(UserRole.USER,  UserRole.ADMIN), orderController.createOrder)
 
+router.patch("/:id", authMiddleware(UserRole.PROVIDER), orderController.updateOrder)
+
 router.delete("/:id", authMiddleware(UserRole.USER, UserRole.ADMIN), orderController.deleteOrder)
 
 
