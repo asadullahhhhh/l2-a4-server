@@ -2,7 +2,8 @@ model CartItem {
     id         String   @id @default(uuid())
     cart_id    String
     meal_id    String
-    quantity   Int      @db.SmallInt
+    quantity   Int      @default(1) @db.SmallInt
+    price      Decimal  @db.Decimal(10, 2)
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
 

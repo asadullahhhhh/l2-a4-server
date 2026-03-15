@@ -7,4 +7,8 @@ const router = Router();
 
 router.post("/", authMiddleware(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), cartItemController.createCartItem)
 
+router.patch("/:id", authMiddleware(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), cartItemController.updateCartItem)
+
+router.delete("/:id", authMiddleware(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), cartItemController.deleteCartItem)
+
 export const cartItemRoute = router;
