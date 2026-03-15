@@ -7,6 +7,7 @@ import errorHandler from './middleware/globalErrorHandler';
 import notFound from './middleware/notFound';
 import { providerRouter } from './modules/provider/provider.route';
 import { mealRouter } from './modules/meals/meal.route';
+import { orderRouter } from './modules/order/order.route';
 
 const app = express()
 
@@ -35,6 +36,9 @@ app.use("/api/v1/provider", providerRouter)
 
 // ===> meal route
 app.use("/api/v1/meals", mealRouter)
+
+// ===> order route
+app.use("/api/v1/order", orderRouter)
 
 
 // Wrong route handler
