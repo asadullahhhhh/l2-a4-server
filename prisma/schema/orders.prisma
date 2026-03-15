@@ -2,7 +2,7 @@ model Orders {
     id               String          @id @default(uuid())
     user_id          String
     provider_id      String
-    status           OrderStatus     @default(PREPARING)
+    status           OrderStatus     @default(PROCESSING)
     total_price      Decimal         @db.Decimal(10, 2)
     delivery_address String
     created_at       DateTime        @default(now())
@@ -22,4 +22,5 @@ enum OrderStatus {
     READY
     DELIVERED
     CANCELLED
+    PROCESSING
 }

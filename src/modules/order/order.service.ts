@@ -1,6 +1,16 @@
 import { prisma } from "../../lib/prisma";
 import { OrderPayload, MealItem } from "../../types/order.type";
 
+const getOrders = async (id: string) => {
+  const result = await prisma.orders.findMany({
+    where: {
+      user_id: id,
+    },
+  });
+
+  return result;
+};
+
 const createOrder = async (payload: OrderPayload, id: string) => {
   const mealIds = payload.items.map((value: MealItem) => value.meal_id);
 
@@ -44,15 +54,35 @@ const createOrder = async (payload: OrderPayload, id: string) => {
           price: meal?.price!,
         };
       }),
-    })
-    return order
+    });
+    return order;
   });
 
-//   console.log(result);
+  return result;
+};
 
-  return result
+const deleteOrder = async (id: string) => {
+  const order = await prisma.orders.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (order?.status !== "PROCESSING") {
+    throw new Error("Only orders with status 'PROCESSING' can be deleted");
+  }
+
+  const deletedOrder = await prisma.orders.delete({
+    where: {
+      id,
+    },
+  });
+
+  return deletedOrder;
 };
 
 export const orderService = {
   createOrder,
+  getOrders,
+  deleteOrder,
 };

@@ -1,0 +1,5 @@
+-- AlterEnum
+ALTER TYPE "OrderStatus" ADD VALUE 'PROCESSING';
+
+-- AlterTable
+ALTER TABLE "orders" ALTER COLUMN "status" SET DEFAULT 'PROCESSING';
