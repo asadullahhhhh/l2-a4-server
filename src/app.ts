@@ -8,6 +8,7 @@ import notFound from './middleware/notFound';
 import { providerRouter } from './modules/provider/provider.route';
 import { mealRouter } from './modules/meals/meal.route';
 import { orderRouter } from './modules/order/order.route';
+import { cartItemRoute } from './modules/cartItems/cartItem.route';
 
 const app = express()
 
@@ -39,6 +40,9 @@ app.use("/api/v1/meals", mealRouter)
 
 // ===> order route
 app.use("/api/v1/order", orderRouter)
+
+// ===> cartItem route
+app.use("/api/v1/cartItem", cartItemRoute)
 
 
 // Wrong route handler
