@@ -36,6 +36,7 @@ const createOrder = async (payload: OrderPayload, id: string) => {
     },
   });
 
+
   const provider_id = meals[0]?.provider_id;
 
   let totalPrice = 0;
@@ -69,8 +70,13 @@ const createOrder = async (payload: OrderPayload, id: string) => {
     return order;
   });
 
+  console.log(result);
   return result;
 };
+
+const isExitstOrder = async (mealId: string) => {
+  
+}
 
 const updateOrder = async (id: string, status: string) => {
 

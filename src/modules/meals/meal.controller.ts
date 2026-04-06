@@ -21,7 +21,7 @@ const getMeals = async (req: Request, res: Response, next: NextFunction) => {
     } = req.query;
 
     const pageNumber = Number(page ?? 1)
-    const limitNumber = Number(limit ?? 10)
+    const limitNumber = Number(limit ?? 12)
 
     const skip = (pageNumber - 1) * limitNumber
 
@@ -80,7 +80,8 @@ const getMeals = async (req: Request, res: Response, next: NextFunction) => {
         : undefined,
       search: typeof search === "string" ? search : undefined,
       pageNumber,
-      limitNumber
+      limitNumber,
+      skip
     };
 
     const result = await mealService.getMeals(query);

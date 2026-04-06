@@ -22,7 +22,7 @@ export const auth = betterAuth({
       },
       status: {
         type: "string",
-        defaultValue: "ACTICE",
+        defaultValue: "ACTIVE",
         required: false,
       },
     },
@@ -30,6 +30,7 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
+    autoSignIn: true,
   },
 
   socialProviders: {

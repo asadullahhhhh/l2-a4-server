@@ -9,6 +9,7 @@ const getMeals = async (queries: Partial<SearchMeals<UpdateMeals>>) => {
     search,
     pageNumber,
     limitNumber,
+    skip,
     ...queryData
   } = queries;
 
@@ -32,7 +33,7 @@ const getMeals = async (queries: Partial<SearchMeals<UpdateMeals>>) => {
   const result = await prisma.meals.findMany({
     where: andConditions.length > 0 ? { AND: andConditions } : {},
     orderBy: order ? { price: order } : { created_at: "desc" },
-    ...(pageNumber && { skip: pageNumber }),
+    ...(pageNumber && { skip: skip }),
     ...(limitNumber && { take: limitNumber }),
   });
 
@@ -56,6 +57,12 @@ const getMeals = async (queries: Partial<SearchMeals<UpdateMeals>>) => {
 const getMealById = async (id: string) => {
   const result = await prisma.meals.findFirstOrThrow({
     where: { id },
+    include: {
+      reviews: true,
+      cart_item: true,
+      orderItems: true,
+      provider: true
+    }
   });
 
   return result;
@@ -64,10 +71,12 @@ const getMealById = async (id: string) => {
 const postMeal = async (payload: Meals) => {
   const { user_id, ...mealData } = payload;
 
+
   let provider = await prisma.providerProfile.findUniqueOrThrow({
     where: { user_id },
     select: { id: true },
   });
+
 
   const meal = await prisma.meals.create({
     data: {

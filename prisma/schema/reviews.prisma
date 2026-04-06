@@ -6,7 +6,7 @@ model Reviews {
     comment    String
     created_at DateTime @default(now())
     meals      Meals    @relation(fields: [meal_id], references: [id], onDelete: Cascade)
-    user       User     @relation(fields: [user_id], references: [id])
+    user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
     @@index([user_id])
     @@index([meal_id])

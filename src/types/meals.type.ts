@@ -25,4 +25,5 @@ export type SearchMeals<T> = {
   search: string | undefined;
   pageNumber: number;
   limitNumber: number;
+  skip: number;
 };
