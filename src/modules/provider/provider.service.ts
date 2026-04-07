@@ -1,27 +1,47 @@
 import { prisma } from "../../lib/prisma";
 import { Provider } from "../../types/provider.type.";
 
-const getAllProviders = async ({skipNumber, limitNumber, pageNumber}: {skipNumber: number, limitNumber: number, pageNumber: number}) => {
-    
+const getAllProviders = async ({
+  skipNumber,
+  limitNumber,
+  pageNumber,
+}: {
+  skipNumber: number;
+  limitNumber: number;
+  pageNumber: number;
+}) => {
   const result = await prisma.providerProfile.findMany({
     skip: skipNumber,
     take: limitNumber,
   });
 
-  const count = await prisma.providerProfile.count()
+  const count = await prisma.providerProfile.count();
 
   const totalPage = Math.ceil(count / limitNumber!);
 
   return {
     meta: {
-        page: pageNumber,
-        limit: limitNumber,
-        skip: skipNumber,
-        totalItems: count,
-        totalPage
+      page: pageNumber,
+      limit: limitNumber,
+      skip: skipNumber,
+      totalItems: count,
+      totalPage,
     },
     data: result,
   };
+};
+
+const getPublicProviderById = async (id: string) => {
+  const result = await prisma.providerProfile.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      meals: true,
+    },
+  });
+
+  return result;
 };
 
 const getProverderById = async (id: string) => {
@@ -68,4 +88,5 @@ export const providerService = {
   getProverderById,
   updateProvider,
   getAllProviders,
+  getPublicProviderById,
 };

@@ -26,6 +26,21 @@ const getAllProviders = async (
   }
 };
 
+const getPublicProviderById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const result = await providerService.getPublicProviderById(id);
+
+        res.status(200).json({
+            success: true,
+            message: "Provider retrieved successfully!!",
+            data: result,
+        });
+    } catch (error) {
+        next(error)
+    }
+}
+
 const createProvider = async (
   req: Request,
   res: Response,
@@ -95,4 +110,5 @@ export const providerController = {
   getProverderById,
   updateProvider,
   getAllProviders,
+    getPublicProviderById,
 };

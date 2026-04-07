@@ -7,6 +7,8 @@ const router = Router()
 
 router.get("/all-providers", providerController.getAllProviders)
 
+router.get("/all-providers/:id", providerController.getPublicProviderById)
+
 router.get("/", authMiddleware(UserRole.PROVIDER, UserRole.ADMIN), providerController.getProverderById)
 
 router.post('/', authMiddleware(UserRole.ADMIN, UserRole.PROVIDER), providerController.createProvider)

@@ -1,11 +1,14 @@
 model CartItem {
-    id         String   @id @default(uuid())
-    cart_id    String
-    meal_id    String
-    quantity   Int      @default(1) @db.SmallInt
-    price      Decimal  @db.Decimal(10, 2)
-    created_at DateTime @default(now())
-    updated_at DateTime @updatedAt
+    id          String   @id @default(uuid())
+    cart_id     String
+    meal_id     String
+    provider_id String
+    image_url   String?
+    name        String
+    quantity    Int      @default(1) @db.SmallInt
+    price       Decimal  @db.Decimal(10, 2)
+    created_at  DateTime @default(now())
+    updated_at  DateTime @updatedAt
 
     cart  Cart  @relation(fields: [cart_id], references: [id])
     meals Meals @relation(fields: [meal_id], references: [id])
