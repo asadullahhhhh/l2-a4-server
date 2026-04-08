@@ -17,6 +17,9 @@ const getOrders = async (id: string) => {
     where: {
       user_id: id,
     },
+    include:{
+      orderItems: true
+    }
   });
 
   return result;
@@ -33,6 +36,8 @@ const createOrder = async (payload: OrderPayload, id: string) => {
       id: true,
       price: true,
       provider_id: true,
+      image_url: true,
+      name: true,
     },
   });
 
@@ -64,6 +69,8 @@ const createOrder = async (payload: OrderPayload, id: string) => {
           meal_id: meal?.id!,
           quantity: item.quantity,
           price: meal?.price!,
+          image_url: meal?.image_url,
+          name: meal?.name,
         };
       }),
     });

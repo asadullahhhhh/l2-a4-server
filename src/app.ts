@@ -10,6 +10,7 @@ import { mealRouter } from './modules/meals/meal.route';
 import { orderRouter } from './modules/order/order.route';
 import { cartItemRoute } from './modules/cartItems/cartItem.route';
 import { reviewRouter } from './modules/reviews/review.route';
+import { profileRoute } from './modules/profile/profile.route';
 
 const app = express()
 
@@ -44,6 +45,9 @@ app.use("/api/v1/order", orderRouter)
 
 // ===> cartItem route
 app.use("/api/v1/cartItem", cartItemRoute)
+
+// ===> Profile route
+app.use("/api/v1/profile", profileRoute)
 
 
 //  ===> review route

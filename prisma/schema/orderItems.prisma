@@ -1,5 +1,7 @@
 model OrderItems {
     id         String   @id @default(uuid())
+    image_url  String?
+    name       String
     order_id   String
     meal_id    String
     quantity   Int
