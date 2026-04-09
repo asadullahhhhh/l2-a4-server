@@ -15,6 +15,21 @@ const featuredMeals = async (req: Request, res: Response, next: NextFunction) =>
     }
 }
 
+const featuredProviders = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await HomeService.featuredProviders()
+
+        res.status(200).json({
+            success: true,
+            message: "Featured providers retrieved successfully",
+            data: result
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const HomeController = {
-    featuredMeals
+    featuredMeals,
+    featuredProviders
 }

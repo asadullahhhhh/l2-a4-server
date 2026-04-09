@@ -25,6 +25,20 @@ const featuredMeals = async () => {
     return meals
 }
 
+const featuredProviders = async () => {
+    const result = await prisma.providerProfile.findMany({
+        take: 6,
+        orderBy: {
+            orders: {
+                _count: "desc"
+            }
+        }
+    })
+
+    return result
+}
+
 export const HomeService = {
-    featuredMeals
+    featuredMeals,
+    featuredProviders
 }
