@@ -45,7 +45,6 @@ const getPublicProviderById = async (id: string) => {
 };
 
 const getProverderById = async (id: string) => {
-  console.log(id);
   const result = await prisma.providerProfile.findUnique({
     where: {
       user_id: id,
@@ -56,7 +55,6 @@ const getProverderById = async (id: string) => {
 };
 
 const createProvider = async (payload: Provider) => {
-  console.log(payload);
   const result = await prisma.providerProfile.create({
     data: {
       ...payload,

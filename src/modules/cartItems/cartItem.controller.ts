@@ -14,8 +14,6 @@ const createCartItem = async (
       image_url: req.body.image_url,
       name: req.body.name,
     };
-
-    console.log(payload);
     const result = await cartItemService.createCartItem(
       payload,
       req.user?.id as string,

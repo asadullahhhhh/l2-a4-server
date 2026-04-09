@@ -11,6 +11,7 @@ import { orderRouter } from './modules/order/order.route';
 import { cartItemRoute } from './modules/cartItems/cartItem.route';
 import { reviewRouter } from './modules/reviews/review.route';
 import { profileRoute } from './modules/profile/profile.route';
+import { HomeRoute } from './modules/home/home.route';
 
 const app = express()
 
@@ -48,6 +49,9 @@ app.use("/api/v1/cartItem", cartItemRoute)
 
 // ===> Profile route
 app.use("/api/v1/profile", profileRoute)
+
+// ===> home route
+app.use("/api/v1/home", HomeRoute)
 
 
 //  ===> review route

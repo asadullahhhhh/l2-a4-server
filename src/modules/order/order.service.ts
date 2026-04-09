@@ -77,13 +77,9 @@ const createOrder = async (payload: OrderPayload, id: string) => {
     return order;
   });
 
-  console.log(result);
   return result;
 };
 
-const isExitstOrder = async (mealId: string) => {
-  
-}
 
 const updateOrder = async (id: string, status: string) => {
 

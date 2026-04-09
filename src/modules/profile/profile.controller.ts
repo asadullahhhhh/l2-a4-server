@@ -22,7 +22,6 @@ const updateProfileDetails = async (req: Request, res: Response, next: NextFunct
         const userId = req.user?.id as string
 
         const result = await profileService.updateProfileDetails(userId, req.body)
-        console.log(result);
 
         res.status(200).json({
             success: true,
