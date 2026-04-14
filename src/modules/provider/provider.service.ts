@@ -64,6 +64,50 @@ const createProvider = async (payload: Provider) => {
   return result;
 };
 
+const getProvierOrders = async (id: string, pageNumber: number, limitNumber: number, skip: number) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const provider = await tx.providerProfile.findUnique({
+      where: {
+        user_id: id
+      },
+      select: {
+        id: true,
+      }
+    })
+
+    const orders = await tx.orders.findMany({
+      where: {
+        provider_id: provider!.id
+      },
+      include: {
+        orderItems: true
+      },
+      skip,
+      take: limitNumber,
+    })
+
+    const count = await tx.orders.count({
+      where: {
+        provider_id: provider!.id
+      }
+    })
+
+    const totalPage = Math.ceil(count / limitNumber);
+
+    return {
+      meta: {
+        page: pageNumber,
+        limit: limitNumber,
+        totalItems: count,
+        totalPage,
+      },
+      data: orders,
+    }
+  })
+
+  return result;
+}
+
 const updateProvider = async (payload: Partial<Provider>, id: string) => {
   const result = await prisma.providerProfile.update({
     where: {
@@ -87,4 +131,5 @@ export const providerService = {
   updateProvider,
   getAllProviders,
   getPublicProviderById,
+  getProvierOrders,
 };

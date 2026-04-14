@@ -7,4 +7,6 @@ const router = Router()
 
 router.get("/get-all-users", authMiddleware(UserRole.ADMIN), UserController.getAllUsers)
 
+router.patch("/update-user", authMiddleware(UserRole.ADMIN), UserController.updateUser)
+
 export const UserRoute = router

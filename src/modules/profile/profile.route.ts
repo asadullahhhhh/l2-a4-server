@@ -5,8 +5,7 @@ import { profileController } from "./profile.controller";
 
 const router = Router()
 
-router.get("/details", authMiddleware(UserRole.USER, UserRole.ADMIN), profileController.getProfileDetails)
-
-router.patch("/update", authMiddleware(UserRole.USER, UserRole.ADMIN), profileController.updateProfileDetails)
+router.get("/details", authMiddleware(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), profileController.getProfileDetails)
+router.patch("/update", authMiddleware(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), profileController.updateProfileDetails)
 
 export const profileRoute = router

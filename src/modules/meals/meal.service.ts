@@ -48,10 +48,51 @@ const getMeals = async (queries: Partial<SearchMeals<UpdateMeals>>) => {
       page: pageNumber,
       limit: limitNumber,
       totalItems: count,
-      totalPage
+      totalPage,
     },
     data: result,
   };
+};
+
+const getProviderMeals = async (provider_id: string, pageNumber: number, limitNumber: number, skip: number) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const providerID = await tx.providerProfile.findUniqueOrThrow({
+      where: {
+        user_id: provider_id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const resultTx = await tx.meals.findMany({
+      where: {
+        provider_id: providerID.id,
+      },
+      skip: skip,
+      take: limitNumber,
+    });
+
+    const count = await tx.meals.count({
+      where: {
+        provider_id: providerID.id,
+      },
+    });
+
+    const totalPage = Math.ceil(count / limitNumber);
+
+    return {
+      meta: {
+        page: pageNumber,
+        limit: limitNumber,
+        totalItems: count,
+        totalPage,
+      },
+      data: resultTx,
+    };
+  });
+
+  return result;
 };
 
 const getMealById = async (id: string) => {
@@ -61,8 +102,8 @@ const getMealById = async (id: string) => {
       reviews: true,
       cart_item: true,
       orderItems: true,
-      provider: true
-    }
+      provider: true,
+    },
   });
 
   return result;
@@ -71,12 +112,10 @@ const getMealById = async (id: string) => {
 const postMeal = async (payload: Meals) => {
   const { user_id, ...mealData } = payload;
 
-
   let provider = await prisma.providerProfile.findUniqueOrThrow({
     where: { user_id },
     select: { id: true },
   });
-
 
   const meal = await prisma.meals.create({
     data: {
@@ -117,4 +156,5 @@ export const mealService = {
   postMeal,
   updateMeal,
   deleteMeal,
+  getProviderMeals,
 };

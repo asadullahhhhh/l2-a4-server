@@ -11,10 +11,13 @@ const getAllProviders = async (
 
     const pageNumber = Number(page ?? 1);
     const limitNumber = Number(limit ?? 12);
-    const skipNumber = (pageNumber - 1) * limitNumber
+    const skipNumber = (pageNumber - 1) * limitNumber;
 
-
-    const result = await providerService.getAllProviders({skipNumber, limitNumber, pageNumber});
+    const result = await providerService.getAllProviders({
+      skipNumber,
+      limitNumber,
+      pageNumber,
+    });
 
     res.status(200).json({
       success: true,
@@ -26,20 +29,24 @@ const getAllProviders = async (
   }
 };
 
-const getPublicProviderById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
-        const result = await providerService.getPublicProviderById(id);
+const getPublicProviderById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const result = await providerService.getPublicProviderById(id);
 
-        res.status(200).json({
-            success: true,
-            message: "Provider retrieved successfully!!",
-            data: result,
-        });
-    } catch (error) {
-        next(error)
-    }
-}
+    res.status(200).json({
+      success: true,
+      message: "Provider retrieved successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const createProvider = async (
   req: Request,
@@ -105,10 +112,41 @@ const updateProvider = async (
   }
 };
 
+const getProviderOrders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.user?.id as string;
+    const { page, limit } = req.query;
+
+    const pageNumber = Number(page ?? 1);
+    const limitNumber = Number(limit ?? 12);
+    const skipNumber = (pageNumber - 1) * limitNumber;
+
+    const result = await providerService.getProvierOrders(
+      id,
+      pageNumber,
+      limitNumber,
+      skipNumber,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Provider orders retrieved successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const providerController = {
   createProvider,
   getProverderById,
   updateProvider,
   getAllProviders,
-    getPublicProviderById,
+  getPublicProviderById,
+  getProviderOrders,
 };

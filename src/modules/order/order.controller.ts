@@ -3,7 +3,20 @@ import { orderService } from "./order.service";
 
 const getOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await orderService.getOrders(req.user?.id as string);
+    const role = req.user?.role as string;
+
+    const { page, limit } = req.query;
+    const pageNumber = Number(page) || 1;
+    const limitNumber = Number(limit) || 12;
+    const skipNumber = (pageNumber - 1) * limitNumber;
+
+    const result = await orderService.getOrders(
+      req.user?.id as string,
+      role,
+      skipNumber,
+      limitNumber,
+      pageNumber,
+    );
 
     res.status(200).json({
       success: true,
@@ -14,6 +27,20 @@ const getOrders = async (req: Request, res: Response, next: NextFunction) => {
     next(e);
   }
 };
+
+const userOrders = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await orderService.getUserOrders(req.user?.id as string);
+
+    res.status(200).json({
+      success: true,
+      message: "User orders fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -67,5 +94,6 @@ export const orderController = {
   createOrder,
   getOrders,
   deleteOrder,
-  updateOrder
+  updateOrder,
+  userOrders
 };

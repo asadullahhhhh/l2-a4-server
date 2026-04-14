@@ -96,6 +96,25 @@ const getMeals = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getProviderMeals = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const provider_id = req.user?.id as string
+    const pageNumber = Number(req.query.page ?? 1)
+    const limitNumber = Number(req.query.limit ?? 12)
+    const skip = (pageNumber - 1) * limitNumber
+
+    const result = await mealService.getProviderMeals(provider_id, pageNumber, limitNumber, skip);
+
+    res.status(200).json({
+      success: true,
+      message: "Meals fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const getMealById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
@@ -169,4 +188,5 @@ export const mealController = {
   postMeal,
   updateMeal,
   deleteMeal,
+  getProviderMeals,
 };

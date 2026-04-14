@@ -5,7 +5,7 @@ import { UserRole } from "../../constants/enums";
 
 const router = Router()
 
-router.post("/", authMiddleware(UserRole.USER), reviewController.createReview)
+router.post("/", authMiddleware(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), reviewController.createReview)
 
 
 export const reviewRouter = router

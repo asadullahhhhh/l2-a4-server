@@ -31,6 +31,22 @@ const getAllUsers = async ({pageNumber, limitNumber, skipNumber, status1, roles}
     }
 }
 
+const updateUser = async (payload: {status: "ACTIVE" | "SUSPENDED", userId: string}) => {
+    const {status, userId} = payload
+
+    const result = await prisma.user.update({
+        where: {
+            id: userId
+        },
+        data: {
+            status
+        }
+    })
+    return result
+
+}
+
 export const UserService = {
-    getAllUsers
+    getAllUsers,
+    updateUser
 }

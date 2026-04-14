@@ -7,6 +7,8 @@ const router = Router()
 
 router.get("/", mealController.getMeals)
 
+router.get("/provider-meals", authMiddleware(UserRole.PROVIDER), mealController.getProviderMeals)
+
 router.get("/:id", mealController.getMealById)
 
 router.post("/", authMiddleware(UserRole.PROVIDER, UserRole.ADMIN) , mealController.postMeal)

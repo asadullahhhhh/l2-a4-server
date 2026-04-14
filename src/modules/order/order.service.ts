@@ -1,3 +1,4 @@
+import { UserRole } from "../../constants/enums";
 import { prisma } from "../../lib/prisma";
 import { OrderPayload, MealItem } from "../../types/order.type";
 
@@ -12,8 +13,31 @@ enum OrderStatus {
 }
 
 
-const getOrders = async (id: string) => {
-  const result = await prisma.orders.findMany({
+const getOrders = async (id: string, role: string, skipNumber: number, limitNumber: number, pageNumber: number) => {
+  if(role === UserRole.ADMIN) {
+    const result = await prisma.orders.findMany({
+      skip: skipNumber,
+      take: limitNumber,
+      include:{
+        orderItems: true
+    }
+    })
+
+    const totalOrders = await prisma.orders.count();
+
+    const totalPage = Math.ceil(totalOrders / limitNumber);
+
+    return {
+      meta: {
+        totalPage: totalPage,
+        page: pageNumber,
+        limit: limitNumber,
+        totalItems: totalOrders
+      },
+      data: result
+    };
+  }else if(role === UserRole.USER) {
+    const result = await prisma.orders.findMany({
     where: {
       user_id: id,
     },
@@ -23,7 +47,21 @@ const getOrders = async (id: string) => {
   });
 
   return result;
+  }
 };
+
+const getUserOrders = async (id: string) => {
+  const result = await prisma.orders.findMany({
+    where: {
+      user_id: id,
+    },
+    include: {
+      orderItems: true,
+    }
+  })
+
+  return result;
+}
 
 const createOrder = async (payload: OrderPayload, id: string) => {
   const mealIds = payload.items.map((value: MealItem) => value.meal_id);
@@ -120,6 +158,7 @@ const deleteOrder = async (id: string) => {
 export const orderService = {
   createOrder,
   getOrders,
+  getUserOrders,
   deleteOrder,
   updateOrder
 };

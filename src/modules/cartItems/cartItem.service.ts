@@ -90,6 +90,7 @@ const deleteCartItem = async (id: string) => {
 };
 
 const isAddCart = async (mealId: string, userId: string) => {
+  console.log("enter");
   const isExist = await prisma.$transaction(async (tx) => {
     const cart = await tx.cart.upsert({
       where: {
@@ -110,6 +111,8 @@ const isAddCart = async (mealId: string, userId: string) => {
 
     return alreadyExists ? true : false;
   });
+
+  // console.log(isExist);
 
   return isExist;
 };
