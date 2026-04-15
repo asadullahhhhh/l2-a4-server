@@ -44,6 +44,16 @@ const getPublicProviderById = async (id: string) => {
   return result;
 };
 
+const getUserProviderData = async (id: string) => {
+  const result = await prisma.providerProfile.findUnique({
+    where: {
+      user_id: id
+    }
+  })
+
+  return result;
+}
+
 const getProverderById = async (id: string) => {
   const result = await prisma.providerProfile.findUnique({
     where: {
@@ -132,4 +142,5 @@ export const providerService = {
   getAllProviders,
   getPublicProviderById,
   getProvierOrders,
+  getUserProviderData
 };

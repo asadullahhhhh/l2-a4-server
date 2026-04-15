@@ -1,14 +1,14 @@
-import { UserRole } from "../constants/enums";
+import { UserRoles } from "../constants/enums";
 import { prisma } from "../lib/prisma";
 
 const adminSeeding = async () => {
     try {
         const origin = process.env.FONTEND_URL;
         const adminData = {
-            name: 'Admin2 User',
-            email: 'admin2@example.com',
+            name: 'Admin User',
+            email: 'admin@example.com',
             password: 'adminpassword',
-            role: UserRole.ADMIN
+            role: UserRoles.ADMIN
         }
 
         const result = await prisma.user.findUnique({
@@ -16,6 +16,7 @@ const adminSeeding = async () => {
                 email: adminData.email
             }
         })
+        console.log(result);
 
         if(result) {
             throw new Error("User already exists!!!");

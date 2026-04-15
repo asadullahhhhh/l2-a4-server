@@ -8,8 +8,8 @@ const getAllUsers = async (req: Request, res:Response, next: NextFunction) => {
         const limitNumber = Number(limit) || 10
         const skipNumber = (pageNumber - 1) * limitNumber
 
-        let status1 = status
-        let roles = role
+        let status1: string | undefined = status as string;
+        let roles: string | undefined = role as string;
 
         if(status === "All"){
             status1 = undefined

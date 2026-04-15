@@ -92,7 +92,7 @@ const createOrder = async (payload: OrderPayload, id: string) => {
     const order = await tx.orders.create({
       data: {
         user_id: id,
-        provider_id,
+        provider_id: provider_id as string,
         total_price: totalPrice,
         delivery_address: payload.delivery_address,
       },
@@ -107,8 +107,8 @@ const createOrder = async (payload: OrderPayload, id: string) => {
           meal_id: meal?.id!,
           quantity: item.quantity,
           price: meal?.price!,
-          image_url: meal?.image_url,
-          name: meal?.name,
+          image_url: meal?.image_url as string,
+          name: meal?.name as string,
         };
       }),
     });

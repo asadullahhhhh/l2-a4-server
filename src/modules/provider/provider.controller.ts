@@ -36,7 +36,7 @@ const getPublicProviderById = async (
 ) => {
   try {
     const { id } = req.params;
-    const result = await providerService.getPublicProviderById(id);
+    const result = await providerService.getPublicProviderById(id as string);
 
     res.status(200).json({
       success: true,
@@ -47,6 +47,22 @@ const getPublicProviderById = async (
     next(error);
   }
 };
+
+const getUserProviderData = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = req?.user?.id as string;
+
+    const result = await providerService.getUserProviderData(id);
+
+    res.status(200).json({
+      success: true,
+      message: "Provider data retrieved successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);  
+  }
+}
 
 const createProvider = async (
   req: Request,
@@ -149,4 +165,5 @@ export const providerController = {
   getAllProviders,
   getPublicProviderById,
   getProviderOrders,
+  getUserProviderData
 };

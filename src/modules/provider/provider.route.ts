@@ -9,6 +9,8 @@ router.get("/all-providers", providerController.getAllProviders)
 
 router.get("/all-providers/:id", providerController.getPublicProviderById)
 
+router.get("/my-provider", authMiddleware(UserRole.PROVIDER), providerController.getUserProviderData)
+
 router.get("/orders", authMiddleware(UserRole.PROVIDER, UserRole.ADMIN), providerController.getProviderOrders)
 
 router.get("/", authMiddleware(UserRole.PROVIDER, UserRole.ADMIN), providerController.getProverderById)

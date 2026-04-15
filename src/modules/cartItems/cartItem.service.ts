@@ -46,7 +46,7 @@ const createCartItem = async (
       quantity: 1,
       price: cartItemData.price,
       provider_id: cartItemData.provider_id,
-      image_url: cartItemData.image_url,
+      image_url: cartItemData.image_url ?? null,  
       name: cartItemData.name,
     },
   });
