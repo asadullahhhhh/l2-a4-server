@@ -13,6 +13,7 @@ import { reviewRouter } from './modules/reviews/review.route';
 import { profileRoute } from './modules/profile/profile.route';
 import { HomeRoute } from './modules/home/home.route';
 import { UserRoute } from './modules/user/user.route';
+import { PaymentRoute } from './modules/payment/payment.route';
 
 const app = express()
 
@@ -56,6 +57,9 @@ app.use("/api/v1/home", HomeRoute)
 
 // ===> Admin route
 app.use("/api/v1/admin", UserRoute)
+
+//  ===> payment route
+app.use("/api/v1/payment", PaymentRoute)
 
 
 //  ===> review route

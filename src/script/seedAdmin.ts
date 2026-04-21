@@ -16,7 +16,6 @@ const adminSeeding = async () => {
                 email: adminData.email
             }
         })
-        console.log(result);
 
         if(result) {
             throw new Error("User already exists!!!");

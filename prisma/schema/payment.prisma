@@ -1,0 +1,17 @@
+model payment {
+    id                       String        @id @default(uuid())
+    user_id                  String
+    amount                   Decimal       @db.Decimal(10, 2)
+    status                   PaymentStatus
+    provider                 String
+    stripe_session_id        String
+    stripe_payment_intent_id String
+    created_at               DateTime      @default(now())
+    updated_at               DateTime      @updatedAt
+}
+
+enum PaymentStatus {
+    PENDING
+    SUCCESSED
+    FAILED
+}

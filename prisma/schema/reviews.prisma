@@ -1,14 +1,14 @@
 model Reviews {
-    id         String   @id @default(uuid())
-    user_id    String
-    meal_id    String
-    rating     Int
-    comment    String
-    created_at DateTime @default(now())
-    meals      Meals    @relation(fields: [meal_id], references: [id], onDelete: Cascade)
-    user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id         String   @id @default(uuid())
+  user_id    String
+  meal_id    String
+  rating     Int
+  comment    String
+  created_at DateTime @default(now())
+  meals      Meals    @relation(fields: [meal_id], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-    @@index([user_id])
-    @@index([meal_id])
-    @@map("reviews")
+  @@index([user_id])
+  @@index([meal_id])
+  @@map("reviews")
 }

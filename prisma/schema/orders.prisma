@@ -1,26 +1,26 @@
 model Orders {
-    id               String          @id @default(uuid())
-    user_id          String
-    provider_id      String
-    status           OrderStatus     @default(PROCESSING)
-    total_price      Decimal         @db.Decimal(10, 2)
-    delivery_address String
-    created_at       DateTime        @default(now())
-    updated_at       DateTime        @updatedAt
-    provider         ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)
-    user             User            @relation(fields: [user_id], references: [id])
-    orderItems       OrderItems[]
+  id               String          @id @default(uuid())
+  user_id          String
+  provider_id      String
+  status           OrderStatus     @default(PROCESSING)
+  total_price      Decimal         @db.Decimal(10, 2)
+  delivery_address String
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+  orderItems       OrderItems[]
+  provider         ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+  user             User            @relation(fields: [user_id], references: [id])
 
-    @@index([user_id])
-    @@index([provider_id])
-    @@map("orders")
+  @@index([user_id])
+  @@index([provider_id])
+  @@map("orders")
 }
 
 enum OrderStatus {
-    PLACED
-    PREPARING
-    READY
-    DELIVERED
-    CANCELLED
-    PROCESSING
+  PLACED
+  PREPARING
+  READY
+  DELIVERED
+  CANCELLED
+  PROCESSING
 }

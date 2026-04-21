@@ -1,10 +1,9 @@
 model Cart {
-    id      String @id @default(uuid())
-    user_id String @unique
-    user    User   @relation(fields: [user_id], references: [id])
+  id         String     @id @default(uuid())
+  user_id    String     @unique
+  user       User       @relation(fields: [user_id], references: [id])
+  cart_items CartItem[]
 
-    cart_items CartItem[]
-
-    @@index([user_id])
-    @@map("cart")
+  @@index([user_id])
+  @@map("cart")
 }

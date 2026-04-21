@@ -90,7 +90,6 @@ const deleteCartItem = async (id: string) => {
 };
 
 const isAddCart = async (mealId: string, userId: string) => {
-  console.log("enter");
   const isExist = await prisma.$transaction(async (tx) => {
     const cart = await tx.cart.upsert({
       where: {

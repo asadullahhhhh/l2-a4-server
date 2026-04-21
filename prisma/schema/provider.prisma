@@ -1,17 +1,17 @@
 model ProviderProfile {
-    id             String   @id @default(uuid())
-    user_id        String   @unique
-    resturent_name String
-    description    String
-    address        String
-    phone          String
-    logo_url       String
-    created_at     DateTime @default(now())
-    updated_at     DateTime @updatedAt
-    meals          Meals[]
-    orders         Orders[]
-    user           User     @relation(fields: [user_id], references: [id])
+  id             String   @id @default(uuid())
+  user_id        String   @unique
+  resturent_name String
+  description    String
+  address        String
+  phone          String
+  logo_url       String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  meals          Meals[]
+  orders         Orders[]
+  user           User     @relation(fields: [user_id], references: [id])
 
-    @@index([user_id])
-    @@map("provider_profile")
+  @@index([user_id])
+  @@map("provider_profile")
 }
