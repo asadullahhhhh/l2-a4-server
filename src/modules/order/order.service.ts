@@ -131,8 +131,6 @@ const createOrder = async (payload: any, id: string) => {
     return order;
   });
 
-  // console.log(result);
-
   return result;
 };
 

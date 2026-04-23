@@ -54,9 +54,7 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
       message: "Order created successfully",
       data: result,
     });
-    console.log(result);
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };

@@ -111,8 +111,6 @@ const isAddCart = async (mealId: string, userId: string) => {
     return alreadyExists ? true : false;
   });
 
-  // console.log(isExist);
-
   return isExist;
 };
 
