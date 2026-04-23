@@ -10,6 +10,7 @@ model Orders {
   orderItems       OrderItems[]
   provider         ProviderProfile @relation(fields: [provider_id], references: [id], onDelete: Cascade)
   user             User            @relation(fields: [user_id], references: [id])
+  payment          payment?
 
   @@index([user_id])
   @@index([provider_id])

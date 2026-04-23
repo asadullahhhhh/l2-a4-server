@@ -1,13 +1,18 @@
 model payment {
-    id                       String        @id @default(uuid())
-    user_id                  String
-    amount                   Decimal       @db.Decimal(10, 2)
-    status                   PaymentStatus
-    provider                 String
-    stripe_session_id        String
-    stripe_payment_intent_id String
-    created_at               DateTime      @default(now())
-    updated_at               DateTime      @updatedAt
+    id              String        @id @default(uuid())
+    user_id         String
+    user            User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    order_id        String        @unique
+    order           Orders        @relation(fields: [order_id], references: [id], onDelete: Cascade)
+    amount          Decimal       @db.Decimal(10, 2)
+    currency        String
+    paymentIntentId String
+    status          PaymentStatus @default(SUCCESSED)
+    created_at      DateTime      @default(now())
+    updated_at      DateTime      @updatedAt
+
+    @@index([user_id])
+    @@index([order_id])
 }
 
 enum PaymentStatus {

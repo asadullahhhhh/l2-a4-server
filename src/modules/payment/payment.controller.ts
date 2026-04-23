@@ -11,7 +11,6 @@ const createPaymentIntent = async (req: Request, res: Response, next: NextFuncti
             currency: "usd",
             payment_method_types: ["card"],
         })
-        console.log(paymentIntent);
         res.status(200).json({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
         next(error);

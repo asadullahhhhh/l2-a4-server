@@ -14,6 +14,7 @@ model User {
   provider_profile ProviderProfile?
   reviews          Reviews[]
   sessions         Session[]
+  payments         payment[]
 
   @@map("user")
 }
