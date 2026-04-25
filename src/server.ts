@@ -8,11 +8,11 @@ const main = async () => {
         await prisma.$connect()
 
         app.listen(port, () => {
-            console.log(`Server is runnig on port ${port}`);
+            console.log(`Server is running on port ${port}`);
         })
     } catch (error) {
             console.error("An error occurred", error);
-            prisma.$disconnect()
+            await prisma.$disconnect()
             process.exit(1)
     }
 }
