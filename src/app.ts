@@ -58,7 +58,7 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 
 // base route
 app.get("/", (req, res) => {
-  res.send("Application is running.....");
+  res.send("Application is running on port 3000.....");
 });
 
 // ===> categories route
