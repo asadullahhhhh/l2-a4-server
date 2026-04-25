@@ -10,7 +10,7 @@ export const auth = betterAuth({
 
   baseURL: process.env.BETTER_AUTH_URL,
 
-  trustedOrigins: [process.env.FONTEND_URL!],
+  trustedOrigins: [process.env.FONTEND_URL! , "http://localhost:3000"],
 
   user: {
     additionalFields: {
@@ -52,5 +52,10 @@ export const auth = betterAuth({
       enabled: false,
     },
     disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+      partitioned: true
+    }
   },
 });
